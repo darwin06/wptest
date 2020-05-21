@@ -1,0 +1,11 @@
+// Bootstrap
+@import "bootstrap-vars";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+// Font Awesome
+@import "fontawesome-vars";
+@import "style/fonts/font-awesome";
+
+
+@import "wordpress/wordpress";
+@import "style/style";
