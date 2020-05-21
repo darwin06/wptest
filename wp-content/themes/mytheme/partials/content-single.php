@@ -14,7 +14,7 @@
     ?>
       <span class="date d-inline-block">
         <?php
-        $movie_year = get_post_meta(get_the_ID(), 'year', true);
+        $movie_year = get_post_meta(get_the_ID(), 'movie_year', true);
         // Check if the custom field has a value.
         if (!empty($movie_year)) {
           _e('Year', 'mytheme');
@@ -47,7 +47,7 @@
       <?php
       if (is_singular('movie')) {
         _e('by ', 'mytheme');
-        $movie_director = get_post_meta(get_the_ID(), 'director', true);
+        $movie_director = get_post_meta(get_the_ID(), 'movie_director', true);
         // Check if the custom field has a value.
         if (!empty($movie_director)) {
           echo '<span class="font-weight-bold">' . $movie_director . '</span>';

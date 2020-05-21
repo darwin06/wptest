@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
-
 <head>
   <title>
     <?php
@@ -20,17 +19,10 @@
     bloginfo('name');
     ?>
   </title>
-  <meta name="description" content="<?php if (is_single()) {
-                                      single_post_title('', true);
-                                    } else {
-                                      bloginfo('name');
-                                      echo " - ";
-                                      bloginfo('description');
-                                    } ?>" />
+  <meta name="description" content="<?php if (is_single()) { single_post_title('', true);  } else { bloginfo('name'); echo " - "; bloginfo('description'); } ?>" />
   <meta charset='UTF-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-
   <?php if (is_single() || is_page() || is_home()) { ?>
     <meta name="googlebot" content="index,noarchive,follow,noodp" />
     <meta name="robots" content="all,index,follow" />

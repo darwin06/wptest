@@ -10,8 +10,7 @@ get_header();
           the_post();
           get_template_part('partials/content', 'single');
           wp_link_pages();
-        } // end while
-
+        }
     ?>
         <div class="col-sm-12">
           <div class="prev-posts pull-left">
@@ -34,84 +33,51 @@ get_header();
           </div>
         </div>
       <?php
-      } // end if
+      }
     } else {
+      if (have_posts()) {
+        while (have_posts()) {
+          add_thickbox();
+          the_post();
       ?>
-      <div class="col-sm-12 content">
-        <?php
-        if (have_posts()) {
-          while (have_posts()) {
-            add_thickbox();
-            the_post();
-        ?>
-            <article <?php post_class('post-card'); ?>>
-              <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-                <?php
-                if (has_post_thumbnail()) {
-                  the_post_thumbnail('large');
-                } else {
-                ?>
-                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/post-thumbnail.jpg" alt="<?php bloginfo('name'); ?>">
-                <?php
-                }
-                ?>
-                <div class="container py-5">
-                  <span class="date d-inline-block">
-                    <?php
-                    $postDate = get_the_date('M jS');
-                    echo '<time datetime="' . get_the_date('Y-m-d') . '" class="text-white">' . $postDate . '</time>';
-                    ?>
-                  </span>
-                  <h2 class="text-white">
-                    <?php
-                    the_title(); ?>
-                  </h2>
-                  <div class="details border-0">
-                    <span class="author d-block d-md-inline-block p-1">
-                      <?php
-                      _e('by ', 'mytheme');
-                      echo '<strong class="text-white">' . get_the_author_meta('user_firstname') . '</strong>';
-                      ?>
-                    </span>
-                    <?php
-                    if (has_category()) {
-                    ?>
-                      <span class="d-block d-md-inline-block p-1">
-                        <?php
-                        _e('categories ', 'mytheme');
-                        echo '<strong class="text-bold">';
-                        the_category(' ', 'single', $post->Id);
-                        echo '</strong>';
-                        ?>
-                      </span>
-                    <?php
-                    }
-                    if (has_tag()) {
-                    ?>
-                      <span class="d-block d-md-inline-block p-1 text-white">
-                        <?php
-                        _e('tags ', 'mytheme');
-                        echo '<strong class="text-bold">';
-                        the_tags(' ', 'single', $post->Id);
-                        echo '</strong>';
-                        ?>
-                      </span>
-                    <?php
-                    }
-                    ?>
-                  </div>
-                </div>
-              </a>
-            </article>
-        <?php
-          }
-          wp_reset_postdata();
+          <article <?php post_class('col-sm-4'); ?>>
+            <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+              <?php
+              if (has_post_thumbnail()) {
+                the_post_thumbnail('large');
+              } else {
+              ?>
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/post-thumbnail.jpg" alt="<?php bloginfo('name'); ?>">
+              <?php
+              }
+              ?>
+              <div class="px-0 py-2">
+                <span class="date d-inline-block">
+                  <?php
+                  $postDate = get_the_date('M jS');
+                  echo '<time datetime="' . get_the_date('Y-m-d') . '" >' . $postDate . '</time>';
+                  ?>
+                </span>
+                <h5>
+                  <?php the_title(); ?>
+                </h5>
+              </div>
+            </a>
+          </article>
+      <?php
         }
+        wp_reset_postdata();
+      }
+      ?>
+
+      <div class="col-sm-12">
+        <?php
+        echo '<h2>' . esc_html__('Latest Movies', 'mytheme') . '</h2>';
         ?>
       </div>
       <div class="col-sm-12 content">
         <?php
-        /* The 2nd Query (without global var) */
+        /* The 2nd Query */
         $args2 = array(
           'post_type'  => 'movie',
         );
@@ -136,7 +102,7 @@ get_header();
                 <div class="container py-5">
                   <span class="date d-inline-block">
                     <?php
-                    $movie_year = get_post_meta(get_the_ID(), 'year', true);
+                    $movie_year = get_post_meta(get_the_ID(), 'movie_year', true);
                     // Check if the custom field has a value.
                     if (!empty($movie_year)) {
                       _e('Year', 'mytheme');
@@ -166,7 +132,7 @@ get_header();
                     <span class="author d-block d-md-inline-block p-1">
                       <?php
                       _e('by ', 'mytheme');
-                      $movie_director = get_post_meta(get_the_ID(), 'director', true);
+                      $movie_director = get_post_meta(get_the_ID(), 'movie_director', true);
                       // Check if the custom field has a value.
                       if (!empty($movie_director)) {
                         echo '<span class="text-white font-weight-bold">' . $movie_director . '</span>';
